@@ -95,7 +95,6 @@ describe('basic', () => {
     const blogs = []
 
     const result = listHelper.dummy(blogs)
-    console.log(123, result)
     expect(result).toBe(1)
   })
 

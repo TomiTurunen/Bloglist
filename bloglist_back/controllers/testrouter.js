@@ -12,7 +12,6 @@ router.post('/reset', async (request, response) => {
 })
 
 router.get('/', async (request, response) => {
-	console.log("Testi Etsitaan kayttajia")
 	try {
 		const users = await User.
 			find({}).populate('blogs', { title: 1, author: 1, url: 1, id: 1 })

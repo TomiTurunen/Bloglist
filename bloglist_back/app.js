@@ -20,7 +20,6 @@ if (process.env.NODE_ENV === 'test') {
 	app.use('/api/testrouter', testingRouter)
 }
 
-console.log(config.MONGODB_URI, process.env.PORT)
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
 
 module.exports = app

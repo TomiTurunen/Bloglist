@@ -5,24 +5,21 @@ const jwt = require('jsonwebtoken')
 const blogsRouter = require('express').Router()
 
 blogsRouter.get('/', async (request, response) => {
-    console.log("GET BLOG!!")
     try {
         const blogs = await Blog.find({})
             .populate('user', { username: 1, name: 1, id: 1 })
             .populate('comments', { content: 1, id: 1 })
         response.json(blogs.map(blog => blog.toJSON()))
     } catch (exception) {
-        console.log(exception)
         response.status(400).send({ error: 'malformatted id' })
     }
 })
 
 blogsRouter.post('/', async (request, response) => {
-    console.log("ADD BLOG!!")
     const testMode = process.env.NODE_ENV === 'test'
     const body = request.body
     try {
-        const user = null
+        let user = null
         if (!testMode) {
             const decodedToken = jwt.verify(request.token, process.env.SECRET)
             if ((!request.token || !decodedToken.id)) {
@@ -70,7 +67,6 @@ blogsRouter.delete('/:id', async (request, response) => {
 })
 
 blogsRouter.put('/:id', async (request, response) => {
-    console.log(request.params.id, "put", request.body)
     try {
         const body = request.body
         const savedBlog = await Blog.findByIdAndUpdate(
@@ -85,14 +81,12 @@ blogsRouter.put('/:id', async (request, response) => {
             },
             { new: true })
         response.json(savedBlog.toJSON())
-        console.log(savedBlog.toJSON())
     } catch (exception) {
         console.log(exception)
     }
 })
 
 blogsRouter.post('/:id/comments', async (request, response) => {
-    console.log("I AM HERE!!")
     const blogId = request.params.id
     const body = request.body
     try {

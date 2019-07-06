@@ -11,21 +11,18 @@ const setToken = newToken => {
 const getAll = async () => {
 	const response = await axios.get(baseUrl)
 	let blogs = response.data
-	console.log(blogs)
 	return blogs.sort((a, b) => b.likes - a.likes)
 }
 
 const create = async newObject => {
-	console.log(token)
 	const config = {
 		headers: { Authorization: token },
 	}
 	const response = await axios.post(baseUrl, newObject, config)
-	console.log(response)
 	return response.data
 }
 
-const addOneLike = async (newObject, setBlogs) => {
+const addOneLike = async (newObject) => {
 	const config = {
 		headers: { Authorization: token },
 	}
@@ -33,7 +30,7 @@ const addOneLike = async (newObject, setBlogs) => {
 	const url = baseUrl + '/' + newObject.id
 	const response = await axios.put(url, newObject, config)
 	const blogs = await getAll()
-	setBlogs(blogs)
+	//setBlogs(blogs)
 	return response.data
 }
 
@@ -49,7 +46,6 @@ const deleteOne = async (deleteObject, setBlogs) => {
 }
 
 const createComment = async (newComment, blogId) => {
-	console.log(url, newComment)
 	const url = baseUrl + '/' + blogId + '/comments'
 	const response = await axios.post(url, newComment)
 	return response.data

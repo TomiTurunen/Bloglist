@@ -7,7 +7,7 @@ import {
 import { Alert, Form, Button, ListGroup } from 'react-bootstrap'
 
 import { handleNotification } from './reducers/notificationReducer'
-import { initializeBlogs, updateBlog } from './reducers/blogReducer'
+import { initializeBlogs, updateBlog, updateLikes } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
 import { initializeUserList } from './reducers/userListReducer'
 import { Blog, SingleBlog } from './components/Blog'
@@ -90,7 +90,6 @@ const App = (props) => {
 
 			props.handleNotification('Tervetuloa käyttämään blogilistaa, ' + user.username, true)
 			setMessage(`welcome ${user.username}`)
-			console.log(message)
 			setTimeout(() => {
 				setMessage(null)
 			}, 10000)
@@ -217,6 +216,7 @@ const mapDispatchToProps = {
 	handleNotification,
 	initializeBlogs,
 	updateBlog,
+	updateLikes,
 	initializeUser,
 	initializeUserList,
 }

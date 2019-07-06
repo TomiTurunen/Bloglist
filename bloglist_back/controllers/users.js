@@ -4,7 +4,6 @@ const User = require('../models/user')
 const uniqueValidator = require('mongoose-unique-validator')
 
 usersRouter.get('/', async (request, response) => {
-    console.log("Etsitaan kayttajia")
     try {
         const users = await User.
             find({}).populate('blogs', { title: 1, author: 1, url: 1, id: 1 })
@@ -16,7 +15,6 @@ usersRouter.get('/', async (request, response) => {
 })
 
 usersRouter.post('/', async (request, response, next) => {
-    console.log("POSTATTIIN")
     try {
         const body = request.body
         console.log(body.password, body.password.length < 3, body.password.lenght)

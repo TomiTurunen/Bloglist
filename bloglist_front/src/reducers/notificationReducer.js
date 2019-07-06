@@ -15,7 +15,6 @@ const reducer = (state = '', action) => {
 
 const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
 export function handleNotification(text, isSuccess) {
-	console.log(text, isSuccess)
 	return { type: ADD_NOTIFICATION, text, isSuccess }
 }
 

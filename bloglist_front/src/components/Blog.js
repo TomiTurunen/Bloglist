@@ -23,19 +23,14 @@ export const Blog = ({ blog }) => {
 export const SingleBlog = ({ props, blog, user, setBlogs }) => {
 	const [content, setContent] = useState('')
 	const handleAddComment = async (event) => {
-		console.log('???')
 		event.preventDefault()
 		try {
-			console.log('???4')
 			const comment = await blogService.createComment({
 				content: content,
 			}, blog.id)
-			console.log('???2')
-			console.log(props)
 			props.updateBlog(blog, comment)
 			props.handleNotification('Lisätty kommentti: ' + content, true)
 		} catch (exception) {
-			console.log(exception)
 			props.handleNotification('Kommentin luonti epäonnistui', false)
 		}
 	}
@@ -48,7 +43,7 @@ export const SingleBlog = ({ props, blog, user, setBlogs }) => {
 			<div>
 				<h2>{blog.title} {blog.author}</h2>
 				<a href={blog.url}>{blog.url} </a><br />
-				{blog.likes} likes <button onClick={() => handleLike(blog, setBlogs)}>like</button> <br />
+				{blog.likes} likes <button onClick={() => handleLike(blog, props)}>like</button> <br />
 				added by {blog.user ? blog.user.name : 'unknown'}
 				{blog.user && user.id === blog.user.id ? <button onClick={() => handleDelete(blog, setBlogs)}>remove</button> : ''}
 				<br />
@@ -74,7 +69,7 @@ export const SingleBlog = ({ props, blog, user, setBlogs }) => {
 }
 
 
-const handleLike = async (blog, setBlogs) => {
+const handleLike = async (blog, props) => {
 	try {
 		await blogService.addOneLike({
 			id: blog.id,
@@ -83,7 +78,8 @@ const handleLike = async (blog, setBlogs) => {
 			author: blog.author,
 			title: blog.title,
 			url: blog.url,
-		}, setBlogs)
+		})
+		props.updateLikes(blog)
 	} catch (exception) {
 		console.log(exception)
 	}

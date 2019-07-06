@@ -23,6 +23,16 @@ export const updateBlog = (blog, comment) => {
 	}
 }
 
+export const updateLikes = (blog) => {
+	return async dispatch => {
+		dispatch({
+			type: 'UPDATE_BLOG',
+			blog: blog,
+			likes: true
+		})
+	}
+}
+
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 	case 'INIT_BLOGS':
@@ -30,7 +40,13 @@ const reducer = (state = initialState, action) => {
 	case 'UPDATE_BLOG':
 		const id = action.blog.id
 		const blogToChange = state.find(a => a.id === id)
-		const changedBlog = {
+		let changedBlog
+		
+		changedBlog = action.likes ? {
+			...blogToChange,
+			likes: blogToChange.likes + 1
+		} :
+		{
 			...blogToChange,
 			comments: blogToChange.comments.concat(action.comment)
 		}

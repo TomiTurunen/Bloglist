@@ -1,7 +1,6 @@
 const _ = require('lodash');
 
 const dummy = (blogs) => {
-    console.log(456)
     return 1
 }
 

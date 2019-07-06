@@ -20,7 +20,6 @@ it('clicking the button calls event handler once', async () => {
 	const button = getByText('like')
 	fireEvent.click(button)
 	fireEvent.click(button)
-	//console.log(prettyDOM(mockHandler.mock.calls))
 	expect(mockHandler.mock.calls.length).toBe(2)
 })
 
