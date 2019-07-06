@@ -7,7 +7,7 @@ import {
 import { Alert, Form, Button, ListGroup } from 'react-bootstrap'
 
 import { handleNotification } from './reducers/notificationReducer'
-import { initializeBlogs, updateBlog, updateLikes } from './reducers/blogReducer'
+import { initializeBlogs, updateBlog, updateLikes, addBlog } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
 import { initializeUserList } from './reducers/userListReducer'
 import { Blog, SingleBlog } from './components/Blog'
@@ -62,11 +62,12 @@ const App = (props) => {
 	const handleCreate = async (event) => {
 		event.preventDefault()
 		try {
-			await blogService.create({
+			const blog = await blogService.create({
 				title: title,
 				author: author,
 				url: url,
 			})
+			props.addBlog(blog)
 			props.handleNotification('Blogi ' + title + ' luotu onnistuneesti!', true)
 		} catch (exception) {
 			props.handleNotification('Blogin luonti epäonnistui. Tarkista syöttämäsi tiedot.', false)
@@ -217,6 +218,7 @@ const mapDispatchToProps = {
 	initializeBlogs,
 	updateBlog,
 	updateLikes,
+	addBlog,
 	initializeUser,
 	initializeUserList,
 }
