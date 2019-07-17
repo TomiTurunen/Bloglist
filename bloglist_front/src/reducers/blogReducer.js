@@ -44,7 +44,6 @@ export const updateLikes = blog => {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log("reducer");
   switch (action.type) {
     case "INIT_BLOGS":
       return action.data;
