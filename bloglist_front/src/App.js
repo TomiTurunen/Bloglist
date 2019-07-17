@@ -42,11 +42,12 @@ const App = props => {
       <div>
         <Togglable buttonLabel="login">
           <LoginForm
-            username={username.value}
+            username={username}
             password={password}
-            handleUsernameChange={username.onChange}
+            setPassword={setPassword}
+            setMessage={setMessage}
             handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
+            props={props}
           />
         </Togglable>
       </div>
